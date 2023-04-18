@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <title>Beatrix Farrand Gardens</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <!--    1.1.  Include the reference to the Mapbox JavaScript here in the <head> of the page  -->
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+
+      
+    <!--    1.2 Include the reference to the Mapbox CSS here in the <head> of the page  -->
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+
+    <style>
+        /* 1.4 Insert the CSS code here between the <style> tags */
+           body { margin:50px; padding:0; }
+            #map1 { position:relative; height:300px; width:50%;}
+        
+            /* 2.5.2 Insert additional CSS code here between the <style> tags */
+            #map2 { position:relative; height:300px; width:50%;}
+        
+            #map3 { position:relative; height:300px; width:50%;}
+        
+            #fly {
+                display: block; /* displays over the map */
+                position: relative; /* displays over the map */
+                margin: 0px auto; 
+                width: 30%;
+                height: 40px;
+                padding: 10px;
+                border: 3px solid black;
+                border-radius: 3px; /* rounded corners */
+                font-size: 12px;
+                text-align: center;
+                font-weight: bold;
+                color: oldlace;
+                background: Green;
+                }
+        
+    </style>
+  </head>
+
+  <body>
+        <!-- 1.3 Insert the div for the structure of the page here in the <body> of the page -->
+      
+      <h1>Explore the World of Pioneering Landscape Architect Beatrix Farrand</h1>
+         <h1> Abby Aldrich Rockefeller Garden: </h1>
+         <div id='map1'></div>
+   <hr>
+      <h1> Dumbarton Oaks:</h1>
+      <div id='map2'></div>
+    <hr>
+      <h1> New York Botanical Garden:</h1>
+      <div id="map3"></div>
+         <br/>
+    <button id='fly'>See the Gardens</button>
+
+      
+        <script>
+            /* Insert the JavaScript within the <script> tags, within the body */
+            // 2.1 Start with the Mapbox access token
+             mapboxgl.accessToken = 'pk.eyJ1IjoidHJpc3Rhbm1hdGxvY2sxMyIsImEiOiJjbGc1ZmtuejQwMnczM2ZsanY4ZDA3NW1vIn0.4Nm_q4ClJXHqpwGUrGS6sg';
+
+        var clickCounter = 1; // keep track of the number of times the user has clicked
+        var flyLocations = [[-68.24828, 44.29393],[-77.06172, 38.91570], [-73.87977, 40.86334]]; // Where the map will fly to
+            
+            // 2.2 Then initialize the first map
+            var map = new mapboxgl.Map({
+                container: 'map1', // id of a div on your page, where the map will be inserted
+                style: 'mapbox://styles/tristanmatlock13/clgfgbif3000001pi9gfp4bnz', // the style URL 'mapbox://styles/mapbox/streets-v11' 
+                center: flyLocations[0], // starting position [lng, lat] eg. [-122.6788, 45.5212]
+                zoom: 11 // starting zoom 
+            });
+
+
+            // 2.3 Add any other variables (such as popups and markers) to the first map
+                 var popup = new mapboxgl.Popup()
+                      .setText('Abby Aldrich Rockefeller Garden');
+
+                  var marker = new mapboxgl.Marker({color:'green'})
+                    .setLngLat(flyLocations[0]) // starting position [lng, lat]
+                    .setPopup(popup) //add the popup named "popup" to this marker 
+                    .addTo(map); // add it to the map with the ID "map"
+
+
+            // 2.4 Add arguments to disable the map interactivity here
+            // Disable drag and zoom handlers.
+                    // Disable drag and zoom handlers.
+               map.dragPan.disable();
+               map.scrollZoom.disable();
+               map.boxZoom.disable();
+               map.dragRotate.disable();
+               map.keyboard.disable();
+               map.doubleClickZoom.disable();
+               map.touchZoomRotate.disable();
+               map.touchZoomRotate.disableRotation();
+
+
+            // 2.5.3 Then initialize the 2nd map
+             var map2 = new mapboxgl.Map({
+            container: 'map2', // id of a div on your page, where the map will be inserted
+                 style: 'mapbox://styles/tristanmatlock13/clgfgbif3000001pi9gfp4bnz', // stylesheet location
+                 center: [-77.06172, 38.91570], // starting position [lng, lat] eg. [-122.6788, 45.5212]
+                 zoom: 11 // starting zoom 
+             });
+
+
+            // 2.5.4 Add any other variables (such as markers) to the second map
+              var popup2 = new mapboxgl.Popup()
+         .setText('Dumbarton Oaks');
+
+         var marker2 = new mapboxgl.Marker({color:'green'})
+           .setLngLat(flyLocations[1]) // starting position [lng, lat] 
+           .setPopup(popup2) //add the popup to the marker 
+           .addTo(map2); 
+
+
+            // 2.5.5 Add arguments to disable the second map's interactivity here
+                 map2.dragPan.disable();
+         map2.scrollZoom.disable();
+         map2.boxZoom.disable();
+         map2.dragRotate.disable();
+         map2.keyboard.disable();
+         map2.doubleClickZoom.disable();
+         map2.touchZoomRotate.disable();
+         map2.touchZoomRotate.disableRotation();
+            
+            
+            
+            
+               var map3 = new mapboxgl.Map({
+            container: 'map3', // id of a div on your page, where the map will be inserted
+                 style: 'mapbox://styles/tristanmatlock13/clgfgbif3000001pi9gfp4bnz', // stylesheet location
+                 center: [-73.87977, 40.86334], // starting position [lng, lat] eg. [-122.6788, 45.5212]
+                 zoom: 11 // starting zoom 
+             });
+
+            
+                 var popup3 = new mapboxgl.Popup()
+         .setText('New York Botanical Garden');
+
+         var marker3 = new mapboxgl.Marker({color:'green'})
+           .setLngLat(flyLocations[2]) // starting position [lng, lat] 
+           .setPopup(popup3) //add the popup to the marker 
+           .addTo(map3, map);  
+            
+                            map3.dragPan.disable();
+         map3.scrollZoom.disable();
+         map3.boxZoom.disable();
+         map3.dragRotate.disable();
+         map3.keyboard.disable();
+         map3.doubleClickZoom.disable();
+         map3.touchZoomRotate.disable();
+         map3.touchZoomRotate.disableRotation();
+            
+             document.getElementById('fly').addEventListener('click', function () {
+                console.log("flying to " + flyLocations[clickCounter])
+                 map.flyTo({
+                     center: flyLocations[clickCounter] 
+                 });
+             });
+          
+         
+              clickCounter = clickCounter +1;
+            if (clickCounter > flyLocations.length-1) clickCounter = 0;
+        </script>
+  </body>
+</html>
