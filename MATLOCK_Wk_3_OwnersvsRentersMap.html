@@ -1,0 +1,170 @@
+ <!DOCTYPE html> <!-- Declare HTML!!! -->
+ <html>          <!-- HTML HTML HTML HTML HTML HTML HTML HTML HTML -->
+ <head>          <!-- HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD -->
+     
+        <!-- <meta> = metadata. <meta> tag defines metadata about html document-->
+        <!-- <meta charset='character_set.' The charset attribute specifies the character encoding for the HTML document. -->
+        <meta charset='utf-8' /> 
+     
+        <!--This is what shows on web tab. How would I add my own icon to this??? -->
+        <title>Owners vs Renters in Portland</title> 
+     
+        <!-- <meta name = "value" Define the viewport to control page dimensions                   and scaling for different devices -->
+        <meta name='viewport' content='width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no' /> 
+     
+        <!-- <href> can be used to link anything to the website. Images can be linked, buttons can become links. -->
+        <!-- <rel> or relation tag specifies relationship between current document and linked reference-->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"             rel="stylesheet" 
+           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     
+        <!--<We use the <script> tag to point to XREF through <src> attribute... <src> or source, specifies URL of an XREF. In this case, we are accessing Mapbox's Javascript as an external .js file that we are refering to with <src> -->
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+     
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css'                    rel='stylesheet' />
+     <style>
+            /* CSS */
+            /* This is where to customize elements */ 
+            /*  stlye for paragraph tags */
+         p {
+            color: white;
+        }
+
+         /* style for heading level 4 tags */
+         h4 {
+             color: white;
+             margin-left: 10px;
+        }
+
+         /*  style for items with the class "LegendContainer" */
+         .LegendContainer {
+             position: absolute;
+             bottom: 20px;
+             left: 20px;
+             z-index: 2;
+             width: 300px;
+             height: 40px;
+             background: rgba(80, 80, 80, .75);
+             transition: width 2s, height 2s; /* this is the time it takes for the container to transition */
+             border-radius: 7px;
+         }
+
+         /*  style for items with the class "descriptionPanel" */
+         .descriptionPanel {
+             position: absolute;
+             bottom: 65px;
+             left: 20px;
+             z-index: 2;
+             width: 300px;
+             height: 40px;
+             background: rgba(80, 80, 80, .75);
+             transition: width 2s, height 2s;
+             overflow: hidden;
+             border-radius: 7px;
+         }
+
+         /*  style for items with the class "descriptionPanel" when active */
+        .LegendContainer:active {
+            width: 240px;
+            height: 250px;
+        }
+         
+         /* style for items with the class "legendItem" */
+        .legendItem {
+            margin: 0px;
+            padding-left: 10px;
+            display:inline-block;
+            margin:auto;
+            transform: translate(50%, 50%);
+         }
+        
+        /* style for items with the class "layerDescription" */
+         .layerDescription {
+             color: white;
+             padding-left: 10px;
+         }
+
+         .renter {
+             color:#80c4ff;
+         }
+         .owner{
+             color:#ffaf4d;
+         }
+
+         /* style for items with the class "chevron" */
+         .chevron {
+             position: relative;
+             margin-left: 45%;
+             font-size: x-large;
+             color: white;
+         }
+
+         body { margin:0; padding:0; }
+         #map { position:absolute; top:0; bottom:0; width:100%; }
+     </style>
+ </head> <!-- HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD HEAD -->
+ <body>  <!-- BODY BODY BODY BODY BODY BODY BODY BODY BODY BODYBODY BODY BODY BODY BODY -->
+<!-- You use the DIV tag in HTML to divide sections of an HTML document. Using the DIV tag lets you define block-level sections of an HTML document. Applying a DIV tag lets you identify the section defined by the DIV tag, so you can then apply formatting or scripting to its content in the <style> section of the <head>. -->
+     
+<!--The <div> tag defines a division or a section in an HTML document.
+    The <div> tag is used as a container for HTML elements - which is then styled with CSS or manipulated with JavaScript.
+    The <div> tag is easily styled by using the class or id attribute. -->
+     
+     
+<!-- The HTML id attribute is used to specify a unique id for an HTML element. ID is differnet than <class> which can be used by multiple html elements -->
+   <div id='map'></div>
+    
+     <!--The class attribute is often used to point to a class name in a style sheet. It can also be used by a JavaScript to access and manipulate elements with the specific class name. -->
+     <div class="descriptionPanel" id="descriptionPanel" style="height: 250px;">
+        <span onClick=panelSelect() id="glyph" class="chevron glyphicon glyphicon-chevron-down"></span>
+        <hr/>
+        <h4>TAKE A LOOK AT THE FLUX</h4>
+        <p style="margin-left: 10px; margin-right: 10px;">
+            This is a map showing every single person in the Portland Area as a dot. Data is taken from the 2017 US Census, and is accurate at the level of a block, however within each block location is randomized. Points are colored based on the number home owners versus renters on a block.
+        </p>
+     </div>
+     
+    <div class="LegendContainer">
+        <div class="legendItem">
+            <span class="owner">&#11044;</span>
+            <span class="layerDescription">Owners</span>
+        </div>
+        <div class="legendItem">
+            <span class="renter">&#11044;</span>
+            <span class="layerDescription">Renters</span>
+        </div>
+   </div>
+     
+   <script>
+     /* Add ACCESS TOKEN here */
+     mapboxgl.accessToken =             'pk.eyJ1IjoidHJpc3Rhbm1hdGxvY2sxMyIsImEiOiJjbGc1ZmtuejQwMnczM2ZsanY4ZDA3NW1vIn0.4Nm_q4ClJXHqpwGUrGS6sg'; 
+       
+     /* Add mapbox STYLE here */     
+     var map = new mapboxgl.Map({
+         container: 'map', // container id
+         style: 'mapbox://styles/tristanmatlock13/clgpgrijz003w01r835yif7uy', // stylesheet location
+     });
+       
+  // Add zoom and rotation controls to the map.
+       const nav = new mapboxgl.NavigationControl({
+        showCompass: true,
+        showZoom: true,
+        visualizePitch: true
+       });
+       map.addControl(nav, 'top-left');
+       
+        var state = { panelOpen: true };
+            function panelSelect(e){
+                if(state.panelOpen){
+                    document.getElementById('descriptionPanel').style.height = '26px';
+                    document.getElementById('glyph').className = "chevron glyphicon glyphicon-chevron-up";
+                    state.panelOpen = false;
+                } else {
+                    document.getElementById('descriptionPanel').style.height = '250px';
+                    document.getElementById('glyph').className = "chevron glyphicon glyphicon-chevron-down";
+                    state.panelOpen = true;
+                    }
+                }
+   </script>
+
+ </body>
+ </html>
