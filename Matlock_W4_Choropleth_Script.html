@@ -1,0 +1,181 @@
+<!DOCTYPE html> <!-- Good evening folks, good to be here -->
+ <html>
+ <head>
+     <meta charset='utf-8' />
+     <title>Compare and Contrast</title>
+     <link rel="icon" type="image/x-icon" href="C:/Users/17074/OneDrive - University Of Oregon/Desktop/Landscape Architecture/2022-23/SPRING/MERSON/Week_4/favicon.png">
+     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+     
+     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+		
+     <!-- JS and CSS for the swipe plugin -->
+     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js'></script>
+     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css' type='text/css' />
+     
+     <!-- CSS CSS CSS -->
+      <style>
+          body { margin:0; padding:0;overflow: hidden;}
+          body * {
+              -webkit-touch-callout: none;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+               user-select: none;
+            }
+		 
+          .map {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              width: 100%;
+          }
+          
+      </style> 
+      <!-- CSS CSS CSS -->
+     
+ </head>
+     
+ <body>
+        <!--html objects; html objects; html objects -->
+        <div id="comparison-container">
+        <div id='owners' class='map'></div>  
+        <div id='renters' class='map'></div> 
+  		</div>
+     
+        <div class="LegendContainer">... </div>
+     
+     <script>
+         //add your Mapbox access token and map variable here!
+          mapboxgl.accessToken = 'pk.eyJ1IjoidHJpc3Rhbm1hdGxvY2sxMyIsImEiOiJjbGc1ZmtuejQwMnczM2ZsanY4ZDA3NW1vIn0.4Nm_q4ClJXHqpwGUrGS6sg';
+         
+         
+          // VARIABLES
+        var popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
+         
+         
+        var ownerMap = new mapboxgl.Map({
+            container: 'owners', // owners map div 
+            style: 'mapbox://styles/mapbox/dark-v10', // Mapbox dark style 
+        center: [-122.6697, 45.5236], 
+            zoom: 10 
+        });
+         
+         
+        ownerMap.on('mousemove', 'Owner Data', function (e) {
+         // Change the cursor style as a UI indicator.
+        ownerMap.getCanvas().style.cursor = 'pointer';
+         var coordinates = e.lngLat;
+         var description = e.features[0].properties.Own;
+         // Populate the popup and set its coordinates
+         // based on the feature found.
+         popup.setLngLat(coordinates)
+            .setHTML(" OWNERS " + description + "%")
+            .addTo(ownerMap);
+        });
+
+         ownerMap.on('mouseleave', 'Owner Data', function () {
+         ownerMap.getCanvas().style.cursor = '';
+         popup.remove();
+         });
+         
+         
+         ownerMap.on('load', function() {
+            // the rest of the owner data code will go in here
+        ownerMap.addLayer({
+  	         id: 'Owner Data',
+             type: "fill",
+             source: {
+             type: 'vector',
+             url: 'mapbox://tristanmatlock13.3zxiiv8h'  //input your tileset ID url e.g. 'mapbox://jomerson.6ykhlovc' 
+             },
+            'source-layer': 'Owner-Renter-Pop-0blmic', //input your source layer name e.g. 'Owner-Renter-Pop-ca08iw'
+            paint: {
+            'fill-color':    ["step",
+                ["get", "Own"],
+                "hsl(225, 100%, 97%)",
+                17.0,
+                "hsl(203, 47%, 82%)",
+                22.0,
+                "hsl(202, 57%, 63%)",
+                27.0,
+                "#3182bd",
+                32.0,
+                 "hsl(210, 90%, 32%)"
+               ],
+               "fill-opacity": 0.7 
+                }     
+            });
+        });
+         
+         var renterMap = new mapboxgl.Map({
+            container: 'renters', // owners map div 
+             style: 'mapbox://styles/mapbox/dark-v10', // Mapbox light style so we can observe the swipe
+             center: [-122.6697, 45.5236],// Use the same center as your other map so that they are perfectly aligned
+             zoom: 10 
+         });
+         
+         
+          renterMap.on('mousemove', 'Renter Data', function (e) {
+        
+         // Change the cursor style as a UI indicator.
+         renterMap.getCanvas().style.cursor = 'pointer';
+    
+         var coordinates = e.lngLat;
+         var description = e.features[0].properties.Rent;
+    
+         // Populate the popup and set its coordinates
+         // based on the feature found.
+         popup.setLngLat(coordinates)
+             .setHTML("RENTERS " + description + "")
+             .addTo(renterMap);
+     });
+
+     renterMap.on('mouseleave', 'Renter Data', function () {
+     	renterMap.getCanvas().style.cursor = '';
+     	popup.remove();
+     });
+         
+         
+          renterMap.on('load', function() {
+              
+            renterMap.addLayer({
+                   id: 'Renter Data',
+                   type: "fill",
+                   source: {
+                   type: 'vector',
+                   url: 'mapbox://tristanmatlock13.3zxiiv8h' //input your tileset ID URL
+                   },
+                   'source-layer': 'Owner-Renter-Pop-0blmic', //input your source layer name e.g. Owner-Renter-Pop-dr7310
+                   paint: {
+                       'fill-color':  ["step",
+                                    ["get", "Rent"],
+                                       "hsl(225, 100%, 97%)",
+                                       17.0,
+                                       "hsl(203, 47%, 82%)",
+                                       22.0,
+                                       "hsl(202, 57%, 63%)",
+                                        27.0,
+                                       "#3182bd",
+                                       32.0,
+                                       "hsl(210, 90%, 32%)"],
+                                         "fill-opacity": 0.7    ,
+                        }
+                    });
+                    });
+        //VARIABLES down here too? 
+ 
+        var container = '#comparison-container';
+
+        var map = new mapboxgl.Compare(ownerMap, renterMap, container, {
+        })
+        
+        
+     </script>
+
+     </body>
+     
+ </html>
