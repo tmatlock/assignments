@@ -11,13 +11,17 @@
             <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
             <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
             <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+            
         <style>
             body { margin: 0; padding: 0; }
             #map { position: absolute; top: 0; bottom: 0; width: 100%; }
         </style>
     </head>
 <body>
+ 
     <div id="map"></div>
+    
+   
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoidHJpc3Rhbm1hdGxvY2sxMyIsImEiOiJjbGc1ZmtuejQwMnczM2ZsanY4ZDA3NW1vIn0.4Nm_q4ClJXHqpwGUrGS6sg';
     const map = new mapboxgl.Map({
@@ -27,7 +31,7 @@
         center: [-123.1, 44.03], // starting position
         zoom: 11.5 // starting zoom
     });
- 
+    
     map.on('load', () => {
         // Add a data source containing GeoJSON data.
         map.addSource('tsal_luk-wah', {
@@ -55,6 +59,8 @@
             }
         });
  
+        
+        
         // Add a new layer to visualize the polygon.
         map.addLayer({
             'id': 'tsal_luk-wah',
@@ -62,7 +68,7 @@
             'source': 'tsal_luk-wah', // reference the data source
             'layout': {},
             'paint': {
-                'fill-color': '#5050aa', // blue color fill
+                'fill-color': '#337700', // blue color fill
                 'fill-opacity': 0.5
             }
         });
@@ -74,7 +80,7 @@
             'layout': {},
             'paint': {
                 'line-color': '#000',
-                'line-width': 1
+                'line-width': 1.5
             }
         });
         
@@ -124,7 +130,7 @@
             'source': 'delta_ponds', // reference the data source
             'layout': {},
             'paint': {
-                'fill-color': '#5050aa', // blue color fill
+                'fill-color': '#009977', // blue color fill
                 'fill-opacity': 0.5
             }
         });
@@ -136,7 +142,7 @@
             'layout': {},
             'paint': {
                 'line-color': '#000',
-                'line-width': 1
+                'line-width': 1.5
             }
         });
         map.addSource('meadows', {
@@ -166,7 +172,7 @@
             'source': 'meadows', // reference the data source
             'layout': {},
             'paint': {
-                'fill-color': '#5050aa', // blue color fill
+                'fill-color': '#009900', // blue color fill
                 'fill-opacity': 0.5
             }
         });
@@ -178,42 +184,537 @@
             'layout': {},
             'paint': {
                 'line-color': '#000',
-                'line-width': 1
+                'line-width': 1.5
             }
         });
-//ROUTE
-        map.addSource('route', {
+        
+//ROUTES
+        map.addSource('roads', {
             'type': 'geojson',
             'data': {
-                'type': 'Feature',
-                'properties': {},
+                'type': 'FeatureCollection',
+                'features': [
+                    {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.2000, 44.0702],
+                        [-123.1848, 44.0700]
+                        
+                    ]} 
+                },
+                {
+                'type' : 'Feature',
                 'geometry': {
                     'type': 'LineString',
                     'coordinates': [
-                        [-123.1780, 44.0479],
-                        [-123.1744, 44.0433],
-                        [-123.1766, 44.0387],
-                        [-123.1712, 44.0382],
-                        [-123.1738, 44.0345]
+                        [-123.1782, 44.0492],
+                        [-123.1782, 44.0473]
+                        
                     ]
                 }
-            }
+                },
+                {
+                'type' : 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1709, 44.0384],
+                        [-123.1667, 44.0384]
+                        
+                    ]
+                }
+                },
+                {
+                'type' : 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1735, 44.0845],
+                        [-123.1681, 44.0845],
+                        [-123.1664, 44.0846],
+                        [-123.1664, 44.0826],
+                        [-123.1645, 44.0827]
+                        
+                    ]
+                }
+                },
+                 {
+                'type' : 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1575, 44.0822],
+                        [-123.1575, 44.0826],
+                        [-123.1533, 44.0825],
+                        [-123.1518, 44.0804],
+                        [-123.1515, 44.0805],
+                        [-123.1510, 44.0805],
+                        [-123.1492, 44.0797],
+                        [-123.1483, 44.0800],
+                        [-123.1487, 44.0812],
+                        [-123.1471, 44.0819],
+                        [-123.1481, 44.0838]
+                        
+                        
+                    ]
+                }
+                },
+                      {
+                'type' : 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1487, 44.0951],
+                        [-123.1449, 44.0952],
+                        [-123.1449, 44.0972],
+                        [-123.1444, 44.0973],
+                        [-123.1385, 44.0972],
+                        [-123.1383, 44.0971],
+                        [-123.1383, 44.0956],
+                        [-123.1377, 44.0955]   
+                    ]
+                }
+                },
+                {
+                'type' : 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1305, 44.0924],  
+                        [-123.1269, 44.0925],
+                        [-123.1268, 44.0933],
+                        [-123.1235, 44.0933],
+                        [-123.1232, 44.0929],
+                        [-123.1223, 44.0929],
+                        [-123.1218, 44.0935],
+                        [-123.1203, 44.0934],
+                        [-123.1190, 44.0934],
+                        [-123.1179, 44.0933],
+                        [-123.1178, 44.0930],
+                        [-123.1155, 44.0913]
+                        
+                        
+                    ]
+                }
+                },
+                
+            ]}
+             
+        })
+        map.addSource('parks', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': [
+                    {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates':  [
+                        [-123.1848, 44.0700],
+                        [-123.1832, 44.0707],
+                        [-123.1831, 44.0714],
+                        [-123.1838, 44.0721],
+                        [-123.1847, 44.0724],
+                        [-123.1848, 44.0744],
+                        [-123.1808, 44.0745],
+                        [-123.1806, 44.0752],
+                        [-123.1793, 44.0752],
+                        [-123.1785, 44.0754],
+                        [-123.1783, 44.0763],
+                        [-123.1783, 44.0772],
+                        [-123.1786, 44.0773],
+                        [-123.1787, 44.0805],
+                        [-123.1780, 44.0810],
+                        [-123.1746, 44.0809],
+                        [-123.1741, 44.0815],
+                        [-123.1738, 44.0824],
+                        [-123.1735, 44.0845]
+                     ]
+                    }
+                },
+                {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates':  [
+                        [-123.1645, 44.0827],
+                        [-123.1643, 44.0815],
+                        [-123.1635, 44.0808],
+                        [-123.1620, 44.0799],
+                        [-123.1605, 44.0799],
+                        [-123.1599, 44.0803],
+                        [-123.1584, 44.0805],
+                        [-123.1577, 44.0809],
+                        [-123.1572, 44.0811],
+                        [-123.1571, 44.0819],
+                        [-123.1575, 44.0822]
+                        
+                        
+                        
+                     ]
+                    }
+                }, 
+                {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates':  [
+                        [-123.1481, 44.0838],
+                        [-123.1479, 44.0840],
+                        [-123.1479, 44.0849],
+                        [-123.1478, 44.0856],
+                        [-123.1475, 44.0860],
+                        [-123.1467, 44.0863],
+                        [-123.1465, 44.0866],
+                        [-123.1473, 44.0869],
+                        [-123.1479, 44.0870],
+                        [-123.1479, 44.0878],
+                        [-123.1481, 44.0881],
+                        [-123.1494, 44.0884],
+                        [-123.1500, 44.0893],
+                        [-123.1499, 44.0905],
+                        [-123.1497, 44.0913],
+                        [-123.1490, 44.0925],
+                        [-123.1494, 44.0935],
+                        [-123.1491, 44.0944],
+                        [-123.1487, 44.0951]
+                     ]
+                    }
+                }, 
+                {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates':  [
+                        [-123.1377, 44.0955],
+                        [-123.1377, 44.0939],
+                        [-123.1372, 44.0934],
+                        [-123.1331, 44.0933],
+                        [-123.1305, 44.0933],
+                        [-123.1305, 44.0924]    
+                     ]
+                    }
+                },
+            ]}  
+        })
+        map.addSource('iris_ridge_trail',{
+            'type': 'geojson',
+            'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1645, 44.0299],
+                        [-123.1624, 44.0289],
+                        [-123.1605, 44.0263],
+                        [-123.1593, 44.0255],
+                        [-123.1592, 44.0250],
+                        [-123.1578, 44.0230],
+                        [-123.1401, 44.0041],
+                        [-123.1276, 43.9968]   
+                    ]}      
+                },    
+        }),
+        map.addSource('willow_creek',{
+            'type': 'geojson',
+            'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1667, 44.0384], 
+                        [-123.1673, 44.0380],
+                        [-123.1672, 44.0369],
+                        [-123.1680, 44.0364],
+                        [-123.1690, 44.0350],
+                        [-123.1697, 44.0336],
+                        [-123.1697, 44.0315],
+                        [-123.1694, 44.0311],
+                        [-123.1670, 44.0312],
+                        [-123.1645, 44.0305],
+                        [-123.1645, 44.0299]
+                    ]}      
+                },    
+        }),
+        map.addSource('prarie',{
+            'type': 'geojson',
+            'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1782, 44.0473],
+                        [-123.1779, 44.0455],
+                        [-123.1754, 44.0437],
+                        [-123.1714, 44.0432],
+                        [-123.1698, 44.0427],
+                        [-123.1691, 44.0417],
+                        [-123.1696, 44.0405],
+                        [-123.1705, 44.0395],
+                        [-123.1709, 44.0384],
+                        
+                        
+                    ]}      
+                },    
+        }),
+        map.addSource('fern_ridge_trail', {
+            'type': 'geojson',
+            'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1782, 44.0492],
+                        [-123.1791, 44.0492],
+                        [-123.1795, 44.0493],
+                        [-123.1801, 44.0494],
+                        [-123.1807, 44.0495],
+                        [-123.1814, 44.0498],
+                        [-123.1816, 44.0499],
+                        [-123.1828, 44.0505],
+                        [-123.1834, 44.0507],
+                        [-123.1842, 44.0509],
+                        [-123.1847, 44.0511],
+                        [-123.1853, 44.0513],
+                        [-123.1859, 44.0518],
+                        [-123.1863, 44.0520],
+                        [-123.1870, 44.0520],
+                        [-123.1873, 44.0530],
+                        [-123.1875, 44.0536],
+                        [-123.1875, 44.0539],
+                        [-123.1877, 44.0544],
+                        [-123.1876, 44.0548],
+                        [-123.1881, 44.0555],
+                        [-123.1887, 44.0560],
+                        [-123.1897, 44.0565],
+                        [-123.1902, 44.0568],
+                        [-123.1905, 44.0573],
+                        [-123.1905, 44.0578],
+                        [-123.1907, 44.0585],
+                        [-123.1902, 44.0590],
+                        [-123.1904, 44.0593],
+                        [-123.1905, 44.0595],
+                        [-123.1908, 44.0599],
+                        [-123.1922, 44.0606],
+                        [-123.1926, 44.0609],
+                        [-123.1931, 44.0611],
+                        [-123.1932, 44.0636],
+                        [-123.1939, 44.0638],
+                        [-123.1965, 44.0645],
+                        [-123.1977, 44.0664],
+                        [-123.1983, 44.0664],
+                        [-123.1986, 44.0666],
+                        [-123.1986, 44.0674],
+                        [-123.1993, 44.0685],
+                        [-123.1999, 44.0686],
+                        [-123.2000, 44.0701] 
+                    ]}      
+                },    
         });
+         map.addSource('east_bank',{
+            'type': 'geojson',
+            'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-123.1155, 44.0913],
+                        [-123.1159, 44.0908],
+                        [-123.1160, 44.0906],
+                        [-123.1162, 44.0905],
+                        [-123.1162, 44.0902],
+                        [-123.1166, 44.0899],
+                        [-123.1173, 44.0887],
+                        [-123.1175, 44.0877],
+                        [-123.1176, 44.0868],
+                        [-123.1175, 44.0864],
+                        [-123.1176, 44.0858],
+                        [-123.1174, 44.0850],
+                        [-123.1168, 44.0840],
+                        [-123.1165, 44.0836],
+                        [-123.1164, 44.0834],
+                        [-123.1147, 44.0813],
+                        [-123.1142, 44.0803],
+                        [-123.1137, 44.0804],
+                        [-123.1135, 44.0806],
+                        [-123.1118, 44.0809]
+      
+                    ]}      
+                },    
+        }),
+        
         map.addLayer({
-            'id': 'route',
+            'id': 'roads',
             'type': 'line',
-            'source': 'route',
+            'source': 'roads',
             'layout': {
                 'line-join': 'round',
                 'line-cap': 'round'
             },
             'paint': {
-                'line-color': '#159',
-                'line-width': 8
+                'line-color': '#800000',
+                'line-width': 3
+            }
+        });
+         map.addLayer({
+            'id': 'prarie',
+            'type': 'line',
+            'source': 'prarie',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#805000',
+                'line-width': 3
+            }
+        });
+        
+        map.addLayer({
+            'id': 'fern_ridge_trail',
+            'type': 'line',
+            'source': 'fern_ridge_trail',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#805000',
+                'line-width': 3
             }
         });
               
+         map.addLayer({
+            'id': 'iris_ridge_trail',
+            'type': 'line',
+            'source': 'iris_ridge_trail',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#109030',
+                'line-width': 3
+            }
+        });
+        
+        map.addLayer({
+            'id': 'willow_creek',
+            'type': 'line',
+            'source': 'willow_creek',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#005090',
+                'line-width': 5
+            }
+        });
+         map.addLayer({
+            'id': 'parks',
+            'type': 'line',
+            'source': 'parks',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#109020',
+                'line-width': 3
+            }
+        });
+          map.addLayer({
+            'id': 'east_bank',
+            'type': 'line',
+            'source': 'east_bank',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#055090',
+                'line-width': 3
+            }
+        });
 //POPUPS
+        
+         var roads_content = '<h2>Road Crossings<h2><h3><h3><h4><h4>';
+            roads_content += '<img class = "popupImage" src = "https://tmatlock.github.io/assignments/Roads.jpg" width ="200px">'
+            roads_content += 'Click here for Plant List, <a href="https://tmatlock.github.io/assignments/PLANT_LIST.jpg">PLANT LIST</a>';
+         map.on('click', 'roads', (e) => {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(roads_content)
+                .addTo(map);
+        });
+        
+         var prarie_content = '<h2>Open Prarie<h2><h3><h3><h4><h4>';
+            prarie_content += '<img class = "popupImage" src = "https://tmatlock.github.io/assignments/tsal-luk-wah.jpeg" width ="200px">'
+            prarie_content += 'Click here for Plant List, <a href="https://tmatlock.github.io/assignments/PLANT_LIST.jpg">PLANT LIST</a>';
+         map.on('click', 'prarie', (e) => {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(prarie_content)
+                .addTo(map);
+        });
+        var parks_content = '<h2>The City Park<h2><h3><h3><h4><h4>';
+            parks_content += '<img class = "popupImage" src = "https://tmatlock.github.io/assignments/Park_Blocks_(Eugene,_Oregon).jpg" width ="200px">'
+            parks_content += 'Click here for Plant List, <a href="https://tmatlock.github.io/assignments/PLANT_LIST.jpg">PLANT LIST</a>';
+         map.on('click', 'parks', (e) => {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(parks_content)
+                .addTo(map);
+        });
+        
+        var iris_ridge_trail_content = '<h2>Iris Ridge Trail<h2><h3><h3><h4><h4>';
+            iris_ridge_trail_content += '<img class = "popupImage" src = "https://tmatlock.github.io/assignments/Iris_ridge2.jpg" width ="200px">'
+            iris_ridge_trail_content += 'Click here for Plant List, <a href="https://tmatlock.github.io/assignments/PLANT_LIST.jpg">PLANT LIST</a>';
+         map.on('click', 'iris_ridge_trail', (e) => {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(iris_ridge_trail_content)
+                .addTo(map);
+        });
+        
+        var willow_creek_content = '<h2>Walk Along Willow Creek<h2><h3><h3><h4><h4>';
+            willow_creek_content += '<img class = "popupImage" src = "https://tmatlock.github.io/assignments/WillowCreek.jpg" width ="200px">'
+            willow_creek_content += 'Click here for Plant List, <a href="https://tmatlock.github.io/assignments/PLANT_LIST.jpg">PLANT LIST</a>';
+         map.on('click', 'willow_creek', (e) => {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(willow_creek_content)
+                .addTo(map);
+        });
+       
+        
+        var east_bank_content = '<h2>Willamette East Bank<h2><h3><h3><h4><h4>';
+            east_bank_content += '<img class = "popupImage" src = "https://tmatlock.github.io/assignments/eastbank2.jpg" width ="200px">'
+            east_bank_content += 'Click here for Plant List, <a href="https://tmatlock.github.io/assignments/PLANT_LIST.jpg">PLANT LIST</a>';
+         map.on('click', 'east_bank', (e) => {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(east_bank_content)
+                .addTo(map);
+        });
+        
+    
+        
+        var fern_ridge_trail_content = '<h2>Fern Ridge Trail<h2><h3><h3>';
+        fern_ridge_trail_content +='<img class = "popupImage" src = "https://tmatlock.github.io/assignments/fern_ridge_path.jpg" width ="200px">'
+             fern_ridge_trail_content += 'Link to Plantlist, <a href="https://tmatlock.github.io/assignments/fern_ridge_path.jpg">Plant List</a>';
+         map.on('click', 'fern_ridge_trail', (e) => {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(fern_ridge_trail_content)
+                .addTo(map);
+        });
+        
+        
         var tsal_luk_wah_content = '<h2>Tsal Luk-wah<h2><h3>"River of Grass" in Kalapuyan<h3><h4>Wet prairie wetlands, vernal pools, emergent wetland, shrub habitat<h4>';
             tsal_luk_wah_content += '<img class = "popupImage" src = "https://tmatlock.github.io/assignments/tsal-luk-wah.jpeg" width ="200px">'
             tsal_luk_wah_content += 'Source:<a href="https://www.eugene-or.gov/Facilities/Facility/Details/81" target="_blank">Eugene City Facilities</a>';
@@ -244,36 +745,87 @@
         });
         
  //CURSOR
-        // Change the cursor to a pointer when
-        // the mouse is over the states layer.
-            map.on('mouseenter', 'tsal_luk-wah', () => {
-            map.getCanvas().style.cursor = 'pointer';
-        });
- 
-        // Change the cursor back to a pointer
-        // when it leaves the states layer.
-            map.on('mouseleave', 'meadows', () => {
-            map.getCanvas().style.cursor = '';
-        });
+        ////
                map.on('mouseenter', 'delta_ponds', () => {
             map.getCanvas().style.cursor = 'pointer';
         });
- 
-        // Change the cursor back to a pointer
-        // when it leaves the states layer.
             map.on('mouseleave', 'delta_ponds', () => {
             map.getCanvas().style.cursor = '';
         });
+        
+         ////
                map.on('mouseenter', 'meadows', () => {
             map.getCanvas().style.cursor = 'pointer';
         });
- 
-        // Change the cursor back to a pointer
-        // when it leaves the states layer.
             map.on('mouseleave', 'meadows', () => {
             map.getCanvas().style.cursor = '';
         });
+        
+        ////
+               map.on('mouseenter', 'tsal_luk-wah', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+            map.on('mouseleave', 'tsal_luk-wah', () => {
+            map.getCanvas().style.cursor = '';
+        });
+        
+        ////
+               map.on('mouseenter', 'roads', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+            map.on('mouseleave', 'roads', () => {
+            map.getCanvas().style.cursor = '';
+        });
+        
+         ////
+               map.on('mouseenter', 'parks', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+            map.on('mouseleave', 'parks', () => {
+            map.getCanvas().style.cursor = '';
+        });
+        
+        ////
+               map.on('mouseenter', 'east_bank', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+            map.on('mouseleave', 'east_bank', () => {
+            map.getCanvas().style.cursor = '';
+        });
+        
+         ////
+               map.on('mouseenter', 'fern_ridge_trail', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+            map.on('mouseleave', 'fern_ridge_trail', () => {
+            map.getCanvas().style.cursor = '';
+        });
+        
+        ////
+               map.on('mouseenter', 'willow_creek', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+            map.on('mouseleave', 'willow_creek', () => {
+            map.getCanvas().style.cursor = '';
+        });
+        ////
+               map.on('mouseenter', 'iris_ridge_trail', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+            map.on('mouseleave', 'iris_ridge_trail', () => {
+            map.getCanvas().style.cursor = '';
+        });
+        
+        ////
+               map.on('mouseenter', 'prarie', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+            map.on('mouseleave', 'prarie', () => {
+            map.getCanvas().style.cursor = '';
+        });
+       
     });
+        
 </script>
  
 </body>
